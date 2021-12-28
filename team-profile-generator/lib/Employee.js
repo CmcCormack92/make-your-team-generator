@@ -41,7 +41,9 @@ class Employee {
         .then(({email}) => {
             this.employee = new Employee(email);
         });
-    }
-}
+    };
+
+    getRole
+};
 
 module.exports = Employee;
