@@ -43,7 +43,9 @@ class Employee {
         });
     };
 
-    getRole
+    getRole = function () {
+        
+    };
 };
 
 module.exports = Employee;

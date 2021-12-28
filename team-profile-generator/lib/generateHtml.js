@@ -43,4 +43,6 @@ function generateHtml() {
 
 </html>
     `
-}
+};
+
+module.export = generateHtml();
