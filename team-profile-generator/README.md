@@ -20,7 +20,7 @@
   To use this program you will need to use command line to navigate to the directory in which the program is located. Once there you can use the command 'node index' to iniate the team member prompts. Fill out all your answers accordingly. Once completed the index.html file will generate in the 'dist' directory. You will then be able to open the HTML file using Live Server or your default browser.
   
   ## Video walkthrough
-  [Walkthrough](https://watch.screencastify.com/v/XAv5PoDtUrlf0ovSrnuj) (Links to an external site.)
+  [Walkthrough](https://watch.screencastify.com/v/Ykjn3VH5ZOvD8Jyz6i0h) (Links to an external site.)
   
   ## License
   This project was created uning the MIT License
