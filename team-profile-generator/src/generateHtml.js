@@ -55,7 +55,7 @@ const generateEmployees = team => {
                 <ul class="list-group list-group-flush bg-white shadow-lg">
                     <li class="list-group-item">Id: ${id}</li>
                     <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
-                    <li class="list-group-item">GitHub: <a href="https://github.com/${gitHub}">${gitHub}</a> </li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${gitHub}" target="_blank">${gitHub}</a> </li>
                 </ul>
             </div>
         </div>
