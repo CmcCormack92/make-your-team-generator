@@ -1,70 +1,92 @@
-const generateManager= pageData => {
-    return `
-    <div class="card col-3 shadow p-2 py-3 mx-2 mb-5 bg-body rounded">
-        <div class="card-header bg-primary text-white">
-            <h3>${pageData.name}</h3>
-            <h4><i class="fas fa-mug-hot"></i> ${pageData.role}</h4>
-        </div>
-        <div class="card-body bg-light my-5">
-            <ul class="list-group list-group-flush bg-white shadow-lg">
-                <li class="list-group-item">Id: ${pageData.id}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${pageData.email}">${pageData.email}</a></li>
-                <li class="list-group-item">Office Number: ${pageData.officeNumber} </li>
-            </ul>
-        </div>
-    </div>
-    `
-};
+const generateEmployees = team => {
+    const getManager = team.filter(Manager => {
+        if (Manager.role === 'manager') {
+            console.log(Manager)
+            return true;
+        } else {
+            return false;
+        }
+    });
 
-const generateEngineer = engineerArr => {
-    if (engineerArr) {
-        return engineerArr.map(engineer => {
-            return `
-        <div class="card col-3 shadow p-2 py-3 mx-2 mb-5 bg-body rounded">
-            <div class="card-header bg-primary text-white">
-                <h3>${engineer.engineer.name}</h3>
-                <h4><i class="fas fa-glasses"></i> ${engineer.engineer.role}</h4>
-            </div>
-            <div class="card-body bg-light my-5">
-                <ul class="list-group list-group-flush bg-white shadow-lg">
-                    <li class="list-group-item">Id: ${engineer.engineer.id}</li>
-                    <li class="list-group-item">Email: <a href="mailto: ${engineer.engineer.email}">${engineer.engineer.email}</a></li>
-                    <li class="list-group-item">GitHub: <a href:"${engineer.engineer.github}">${engineer.engineer.github}</a> </li>
-                </ul>
-            </div>
-        </div>
-        `
-        }).join('')
-    } else {
-        return '';
-    };
-};
+    const getEngineer = team.filter(Engineer => {
+        if (Engineer.role === 'engineer') {
+            console.log(Engineer)
+            return true;
+        } else {
+            return false;
+        }
+    });
 
-const generateIntern = internArr =>  {
-   if (internArr) {
-       return internArr.map(intern => {
+    const getIntern = team.filter(Intern => {
+        if (Intern.role === 'intern') {
+            console.log(Intern)
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    const generateManager = getManager.map(({ name, id, email, officeNumber }) => {
+        return `
+<div class="card col-3 shadow p-2 py-3 mx-2 mb-5 bg-body rounded">
+<div class="card-header bg-primary text-white">
+    <h3>${name}</h3>
+    <h4><i class="fas fa-mug-hot"></i> Manager </h4>
+</div>
+<div class="card-body bg-light my-5">
+    <ul class="list-group list-group-flush bg-white shadow-lg">
+        <li class="list-group-item">Id: ${id}</li>
+        <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+        <li class="list-group-item">Office Number: ${officeNumber} </li>
+    </ul>
+</div>
+</div>
+`;
+    });
+
+    const generateEngineer = getEngineer.map(({name, id, email, gitHub}) => {
         return `
         <div class="card col-3 shadow p-2 py-3 mx-2 mb-5 bg-body rounded">
             <div class="card-header bg-primary text-white">
-                <h3>${intern.intern.name}</h3>
-                <h4><i class="fas fa-graduation-cap"></i> ${intern.intern.role}</h4>
+                <h3>${name}</h3>
+                <h4><i class="fas fa-glasses"></i> Engineer</h4>
             </div>
             <div class="card-body bg-light my-5">
                 <ul class="list-group list-group-flush bg-white shadow-lg">
-                    <li class="list-group-item">Id: ${intern.intern.id}</li>
-                    <li class="list-group-item">Email: <a href="mailto: ${intern.intern.email}">${intern.intern.email}</a></li>
-                    <li class="list-group-item">School: ${intern.intern.school}</li>
+                    <li class="list-group-item">Id: ${id}</li>
+                    <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${gitHub}">${gitHub}</a> </li>
+                </ul>
+            </div>
+        </div>
+        `;    
+    });
+
+    const generateIntern = getIntern.map(({name, id, email, school}) => {
+                return `
+        <div class="card col-3 shadow p-2 py-3 mx-2 mb-5 bg-body rounded">
+            <div class="card-header bg-primary text-white">
+                <h3>${name}</h3>
+                <h4><i class="fas fa-graduation-cap"></i> Intern</h4>
+            </div>
+            <div class="card-body bg-light my-5">
+                <ul class="list-group list-group-flush bg-white shadow-lg">
+                    <li class="list-group-item">Id: ${id}</li>
+                    <li class="list-group-item">Email: <a href="mailto: ${email}">${email}</a></li>
+                    <li class="list-group-item">School: ${school}</li>
                 </ul>
             </div>
         </div>
         `
-       }).join('')
-   } else {
-       return '';
-   };
+    });
+    return `
+    ${generateManager.join('')}
+    ${generateEngineer.join('')}
+    ${generateIntern.join('')}
+    `
 };
 
-const generateHtml = pageData => {
+const generateHtml = (team) => {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -87,9 +109,7 @@ const generateHtml = pageData => {
 
     <main class="d-flex justify-content-center">
         <div class="row w-100 justify-content-center">
-            ${generateManager(pageData)}
-            ${generateEngineer(pageData.engineer)}
-            ${generateIntern(pageData.intern)}
+           ${generateEmployees(team)}
         </div>
     </main>
 </body>

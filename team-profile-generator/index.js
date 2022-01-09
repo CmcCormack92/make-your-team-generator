@@ -5,69 +5,73 @@ const generateHtml = require('./src/generateHtml');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-function init() {
-  return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'managerName',
-            message: 'What is your managers name?',
-            validate: managerNameInput => {
-                if (managerNameInput) {
-                    return true;
-                } else {
-                    console.log("Plase enter the Manager's Name!");
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'managerId',
-            message: 'What is your managers ID?',
-            validate: managerIdInput => {
-                if (managerIdInput) {
-                    return true;
-                } else {
-                    console.log("Plase enter the Manager's ID!");
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'managerEmail',
-            message: 'What is your managers Email?',
-            validate: managerEmailInput => {
-                if (managerEmailInput) {
-                    return true;
-                } else {
-                    console.log("Plase enter the Manager's Email!");
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'managerOfficeNumber',
-            message: 'What is your managers Office Number?',
-            validate: managerOfficeNumberInput => {
-                if (managerOfficeNumberInput) {
-                    return true;
-                } else {
-                    console.log("Plase enter the Manager's Office Number!");
-                    return false;
-                }
+const team = [];
+
+
+
+inquirer.prompt([
+    {
+        type: 'input',
+        name: 'managerName',
+        message: 'What is your managers name?',
+        validate: managerNameInput => {
+            if (managerNameInput) {
+                return true;
+            } else {
+                console.log("Please enter the Manager's Name!");
+                return false;
             }
         }
+    },
+    {
+        type: 'input',
+        name: 'managerId',
+        message: 'What is your managers ID?',
+        validate: managerIdInput => {
+            if (managerIdInput) {
+                return true;
+            } else {
+                console.log("Please enter the Manager's ID!");
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'managerEmail',
+        message: 'What is your managers Email?',
+        validate: managerEmailInput => {
+            if (managerEmailInput) {
+                return true;
+            } else {
+                console.log("Please enter the Manager's Email!");
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'managerOfficeNumber',
+        message: 'What is your managers Office Number?',
+        validate: managerOfficeNumberInput => {
+            if (managerOfficeNumberInput) {
+                return true;
+            } else {
+                console.log("Please enter the Manager's Office Number!");
+                return false;
+            }
+        }
+    }
 
-    ]).then(answer => {
-        // const manager = new Manager(answer.managerName, answer.managerId, answer.managerEmail, answer.managerOfficeNumber)
+]).then(answer => {
+    const manager = new Manager('manager', answer.managerName, answer.managerId, answer.managerEmail, answer.managerOfficeNumber)
+    team.push(manager);
 
-        addEmployee();
-    });
-};
+    addEmployee();
+});
 
-function addEmployee(projectData) {
+
+function addEmployee() {
     inquirer.prompt([
         {
             type: 'list',
@@ -77,21 +81,17 @@ function addEmployee(projectData) {
         }
     ]).then(answer => {
         if (answer.next === 'Engineer') {
-            createEngineer()
+            createEngineer();
         } else if (answer.next === 'Intern') {
-            createIntern()
+            createIntern();
         } else {
-            createTeam(projectData);
+            createTeam(team);  
         }
-    })
+    });
 };
 
-function createEngineer(projectData) {
-    if (!projectData.engineer) {
-        projectData.engineer = [];
-    }
-
-    return inquirer.prompt([
+function createEngineer() {
+     inquirer.prompt([
         {
             type: 'input',
             name: 'engineerName',
@@ -100,7 +100,7 @@ function createEngineer(projectData) {
                 if (enigineerNameInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Engineer's Name!");
+                    console.log("Please enter the Engineer's Name!");
                     return false;
                 }
             }
@@ -113,7 +113,7 @@ function createEngineer(projectData) {
                 if (engineerIdInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Engineer's Id!");
+                    console.log("Please enter the Engineer's Id!");
                     return false;
                 }
             }
@@ -126,7 +126,7 @@ function createEngineer(projectData) {
                 if (engineerEmailInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Engineer's Email!");
+                    console.log("Please enter the Engineer's Email!");
                     return false;
                 }
             }
@@ -139,23 +139,21 @@ function createEngineer(projectData) {
                 if (engineerGithubInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Engineer's GitHub!");
+                    console.log("Please enter the Engineer's GitHub!");
                     return false;
                 }
             }
         }
-    ]).then(projectData => {
-        const engineer = new Engineer(projectData.engineerName, projectData.engineerId, projectData.engineerEmail, projectData.engineerGithub)
-        projectData.engineer.push(engineer);
+    ]).then(answer => {
+        const engineer = new Engineer('engineer', answer.engineerName, answer.engineerId, answer.engineerEmail, answer.engineerGithub);
+        team.push(engineer);
         addEmployee();
     });
+
 };
 
-const createIntern = projectData => {
-    if (!projectData.intern) {
-        projectData.intern = [];
-    }
-    return inquirer.prompt([
+function createIntern() {
+    inquirer.prompt([
         {
             type: 'input',
             name: 'internName',
@@ -164,7 +162,7 @@ const createIntern = projectData => {
                 if (internNameInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Intern's Name!");
+                    console.log("Please enter the Intern's Name!");
                     return false;
                 }
             }
@@ -177,7 +175,7 @@ const createIntern = projectData => {
                 if (internIdInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Intern's Id!");
+                    console.log("Please enter the Intern's Id!");
                     return false;
                 }
             }
@@ -190,7 +188,7 @@ const createIntern = projectData => {
                 if (internEmailInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Intern's Email!");
+                    console.log("Please enter the Intern's Email!");
                     return false;
                 }
             }
@@ -203,27 +201,23 @@ const createIntern = projectData => {
                 if (internSchoolInput) {
                     return true;
                 } else {
-                    console.log("Plase enter the Intern's School!");
+                    console.log("Please enter the Intern's School!");
                     return false;
                 }
             }
         }
-    ]).then(answers => {
-            projectData.intern.push(answers)
+    ]).then(answer => {
+        const intern = new Intern('intern', answer.internName, answer.internId, answer.internEmail, answer.internSchool);
+        team.push(intern);
         addEmployee();
-    });
-};
+    })
+}
 
-
-function createTeam(projectData) {
-    return new Promise((projectData) => {
-        const teamHtml = generateHtml(projectData);
-        fs.writeFile('./dist/index.html', teamHtml, err => {
+function createTeam(team) {
+        const teamHtml = generateHtml(team);
+        fs.writeFile('./dist/index.html', teamHtml, (err) => {
             if (err) throw (err);
-
-            console.log('Team Page generated! Please open the dist folder to see your new HTML file')
+            console.log('Your Team Web Page was generated')
         });
-    });
 };
 
-init();
