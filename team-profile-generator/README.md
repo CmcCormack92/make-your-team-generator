@@ -42,6 +42,6 @@
 
   [GitHub](https://github.com/CmcCormack92)
   
-  [GitHub Repo](https://github.com/CmcCormack92/team-profile-generator)
+  [GitHub Repo](https://github.com/CmcCormack92/jot-it-down)
 
   [Email](mailto:chrismack135@gmail.com)
