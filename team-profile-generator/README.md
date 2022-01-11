@@ -3,6 +3,9 @@
 
   ## Description
   This program will allow the user to create a fully functional and styled HTML webpage with all of there employees information. It will create employee cards for your Manager, Engineer's and Intern's with ways to contact them.
+  
+  ## Screenshot
+  <img width="1440" alt="Screen Shot 2022-01-11 at 3 25 21 PM" src="https://user-images.githubusercontent.com/86354138/149016071-d48ead45-6a4d-49fc-a623-22309e5dc6dd.png">
 
   ## Table of contents
 
